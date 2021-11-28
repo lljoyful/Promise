@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link crossorigin="anonymous" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="page-header">Promise 初体验</h2>
+      <button class="btn btn-primary" id="btn">点击抽奖</button>
+    </div>
+    <script>
+      //生成随机数
+      function rand(m, n) {
+        return Math.ceil(Math.random() * (n - m + 1)) + m - 1;
+      }
+      //获取元素对象
+      const btn = document.querySelector('#btn');
+      //绑定单击事件
+      btn.addEventListener('click', function () {
+        //定时器
+        // setTimeout(() => {
+        //     //30%  1-100  1 2 30
+        //     //获取从1 - 100的一个随机数
+        //     let n = rand(1, 100);
+        //     //判断
+        //     if(n <= 30){
+        //         alert('恭喜恭喜, 奖品为 10万 RMB 劳斯莱斯优惠券');
+        //     }else{
+        //         alert('再接再厉');
+        //     }
+        // }, 1000);
+
+        // Promise实现
+        // resolve解决 函数类型的数据
+        // reject拒绝  函数类型的数据
+        const p = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            //30%  1-100  1 2 30
+            //获取从1 - 100的一个随机数
+            let n = rand(1, 100);
+            //判断
+            if (n <= 30) {
+              resolve(n);
+            } else {
+              reject(n);
+            }
+          }, 100);
+        });
+
+        // 调用then方法
+        p.then(
+          (value) => {
+            alert('恭喜恭喜, 奖品为 10万 RMB 劳斯莱斯优惠券' + value);
+          },
+          (reason) => {
+            alert('再接再厉' + reason);
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
